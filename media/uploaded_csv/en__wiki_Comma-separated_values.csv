@@ -1,0 +1,10 @@
+0,1
+,
+A simple CSV file listing three people and the companies they work for,A simple CSV file listing three people and the companies they work for
+Filename extension,.csv
+Internet media type,text/csv[1]
+Uniform Type Identifier (UTI),public.comma-separated-values-text[2]
+UTI conformation,public.delimited-values-text[2]
+Type of format,"multi-platform, serial data streams"
+Container for,database information organized as field separated lists
+Standard,RFC 4180
