@@ -1,0 +1,324 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Pandas{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+    <div class="az-content az-content-dashboard">
+      <div class="container">
+        <div class="az-content-body">
+          <div class="az-dashboard-one-title">
+            <div>
+              <h2 class="az-dashboard-title"></h2>
+              <p class="az-dashboard-text"></p>
+            </div>
+            <div class="az-content-header-right">
+               <form id="exportForm" method="post" action="{% url 'download' %}">
+                                              {% csrf_token %}
+        <input type="hidden" name="data" value="{{ datahtml}}">
+        <button class="btn btn-purple" type="submit">Export</button>
+      </form>
+            </div>
+          </div><!-- az-dashboard-one-title -->
+
+          <div class="az-dashboard-nav"> 
+              <nav class="nav">
+              </nav>
+
+              <div class="nav">
+                <div id="excel-dropdown" class="dropdown-box">
+                     <form method="post" action="{% url 'list_files' %}" class="form">
+          {% csrf_token %}
+
+          <div class="form-group row">
+            <div class="col-sm">
+              <label for="dropdown1"> File</label>
+              <select class="form-control" id="dropdown1" name="dropdown1">
+                {% for uploaded_file in uploaded_files %}
+                <option value="{{ uploaded_file.file.name }}">
+                  {{ uploaded_file.file.name }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            {% if lendata %}
+
+          
+
+            {% endif %}
+          </div>
+
+          <button style="margin-bottom: 50px;" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+                </div>
+                <div id="link-dropdown" class="dropdown-box">
+                  <!-- Content for the Link dropdown goes here -->
+                 
+                </div>
+               
+              </div>
+            </div>
+
+          <div class="row row-sm mg-b-20">
+            
+           <div class="col-lg-4 ht-lg-60p">
+             {% if lendata %}
+              <div class="container card shadow d-flex justify-content-center mt-5">
+                  <!-- nav options -->
+                  <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Slicing</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Group By</a>
+                    </li>
+                 
+                  </ul>
+
+                <!-- content -->
+               
+                <div class="tab-content" id="pills-tabContent p-3" style="margin-bottom:40px">
+                  <!-- 1st card -->
+                  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="m-3">
+                      
+                        <form method="post" action="{% url 'list_files' %}" class="form">
+                              {% csrf_token %}
+                              <h3 style="margin-top: 40px">Slicing</h3>
+                              <input
+                                name="dropdown1"
+                                id="dropdown1"
+                                value="{{selected}}"
+                                hidden
+                              />
+                              <label for="dropdown2">Columns</label>
+                              {% for column in columns %}
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  name="selected_columns"
+                                  value="{{ column }}"
+                                  id="{{ column }}"
+                                />
+                                <label class="form-check-label" for="{{ column }}">
+                                  {{ column }}
+                                   {% if column in numerical %}
+                                      <span style="color: red; font-size: small;">numerical</span>
+                                  {% endif %}
+                                </label>
+                              </div>
+                              {% endfor %}
+
+                              <br />
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="slice_option"
+                                  value="head"
+                                  id="head"
+                                />
+                                <label class="form-check-label" for="head">Head</label>
+                              </div>
+
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="slice_option"
+                                  value="tail"
+                                  id="tail"
+                                />
+                                <label class="form-check-label" for="tail">Tail</label>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-sm">
+                                  <label for="line1">Select From:</label>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="line1"
+                                    id="line1"
+                                    min="0"
+                                    placeholder="0"
+                                    value="0"
+                                  />
+                                </div>
+                                <div class="col-sm">
+                                  <label for="line2"
+                                    >Select To:<span
+                                      style="color: rgb(243, 76, 76); font-size: 10px"
+                                      >({{lendata}})</span
+                                    ></label
+                                  >
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="line2"
+                                    id="line2"
+                                    min="0"
+                                    placeholder="0"
+                                    value="0"
+                                  />
+                                </div>
+                              </div>
+
+                              <br />
+
+                              <div class="row">
+                                <div class="col-sm">
+                                  <label for="sample">Select Sample:</label>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="sample"
+                                    id="sample"
+                                    min="0"
+                                    placeholder="0"
+                                    value="0"
+                                  />
+                                </div>
+                              </div>
+                              
+
+                              <button
+                                style="margin-top: 40px"
+                                type="submit"
+                                class="btn btn-primary"
+                              >
+                                Submit
+                              </button>
+                              
+                        </form>
+                    </div>
+                   
+                  </div>
+                  <!-- 2nd card -->
+                  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="m-3">
+                        <form method="post" action="{% url 'list_files' %}" class="form">
+                              {% csrf_token %}
+                             
+                              <h3 style="margin-top: 40px">Group by</h3>
+
+                            
+                               <input
+                                    name="dropdown1"
+                                    id="dropdown1"
+                                    value="{{selected}}"
+                                    hidden
+                                  />
+                                <label for="group">Group by</label>
+                                <select class="form-control" id="group" name="group">
+                                  {% for col in columns %}
+                                  <option value="{{ col }}">{{ col }}
+                                     
+                                  </option>
+                                  {% endfor %}
+                                </select>
+                                <label for="dropdown2">Columns</label>
+                                {% for column in columns %}
+                                <div class="form-check2">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="selected_columns2"
+                                    value="{{ column }}"
+                                    id="{{ column }}"
+                                   style="margin-left: 20px"
+                                  />
+                                  <label class="form-check-label" style="margin-left: 40px" for="{{ column }}">
+                                    {{ column }}
+                                    {% if column in numerical %}
+                                          <span style="color: red; font-size: small;">numerical</span>
+                                      {% endif %}
+                                  </label>
+                                </div>
+                                {% endfor %}
+                                <br />
+                                <label for="agg">Aggregations</label><br />
+                                <select class="form-control" id="agg" name="agg">
+                                  {% for col in agg %}
+                                  <option value="{{ col }}" >{{ col }}</option>
+                                  {% endfor %}
+                                </select>
+                           
+
+                              <button
+                                style="margin-top: 40px"
+                                type="submit"
+                                class="btn btn-primary"
+                              >
+                                Submit
+                              </button>
+                              
+                        </form>
+                      
+                    </div>
+                  </div>
+                 
+                </div>
+              
+              </div>
+              {% endif %}
+            </div><!-- col -->
+{% if lendata %}
+            <div class="ht-lg-100p">
+              <div class="card card-dashboard-one">
+                <div class="card-header">
+                 
+                </div><!-- card-header -->
+                 <div class="col-md-1">
+            <table class="table" id="data-table">
+              <thead>
+                <tr>
+                  {% for column in datahtml %}
+                  <th>{{ column }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in datahtml.values %}
+                <tr>
+                  {% for v in row %}
+                  <td>{{ v }}</td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+              </div><!-- card -->
+            </div><!-- col -->
+          </div><!-- row -->
+
+ {% endif %}
+   
+        </div><!-- az-content-body -->
+      </div>
+    </div><!-- az-content -->
+ <script>
+    // Add an event listener to update the min attribute of line2 dynamically
+    document.getElementById('line1').addEventListener('input', function () {
+      var line1Value = parseInt(this.value);
+      document.getElementById('line2').min = line1Value;
+      document.getElementById('line2').placeholder = 'Enter a value greater than or equal to Line 1';
+    });
+  </script>
+
+  <script>
+    // Check if there is an error message in the context
+    '{% if error_message %}'
+        // Display the error message in a pop-up
+        alert('{{ error_message|escapejs }}');
+    '{% endif %}'
+</script>
+
+{% endblock %}
+

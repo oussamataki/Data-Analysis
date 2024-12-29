@@ -1,0 +1,142 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Other Page{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+    <div class="az-content az-content-dashboard">
+      <div class="container">
+        <div class="az-content-body">
+          <div class="az-dashboard-one-title">
+            <div>
+              <h2 class="az-dashboard-title">Hi, welcome back!</h2>
+              <p class="az-dashboard-text">Your Django dashboard.</p>
+            </div>
+            <div class="az-content-header-right">
+              
+              <a href="" class="btn btn-purple">Export</a>
+            </div>
+          </div><!-- az-dashboard-one-title -->
+
+          <div class="az-dashboard-nav"> 
+              <nav class="nav">
+                <a class="nav-link active" data-toggle="tab" href="#" data-target="excel">File</a>
+                <a class="nav-link" data-toggle="tab" href="#" data-target="link">LINK</a>
+              </nav>
+
+              <div class="nav">
+                <div id="excel-dropdown" class="dropdown-box">
+                  <!-- Content for the Excel dropdown goes here -->
+                  Excel Dropdown Content
+                </div>
+                <div id="link-dropdown" class="dropdown-box">
+                  <!-- Content for the Link dropdown goes here -->
+                  Link Dropdown Content
+                </div>
+               
+              </div>
+            </div>
+
+          <div class="row row-sm mg-b-20">
+            <div class="col-lg-7 ht-lg-100p">
+              <div class="card card-dashboard-one">
+                <div class="card-header">
+                 
+                </div><!-- card-header -->
+                <div class="card-body">
+                  <div class="card-body-top">
+                   
+                  </div><!-- card-body-top -->
+                  
+                </div><!-- card-body -->
+              </div><!-- card -->
+            </div><!-- col -->
+           <div class="col-lg-4 ht-lg-60p">
+              <div class="container card shadow d-flex justify-content-center mt-5">
+                  <!-- nav options -->
+                  <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Slici</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Operators</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Values</a>
+                    </li>
+                  </ul>
+
+                <!-- content -->
+                <div class="tab-content" id="pills-tabContent p-3">
+                  <!-- 1st card -->
+                  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <form class="search">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search..." />
+                    </form>
+                    <ul class="ccontent">
+                      <li>
+                        <div class="wrapp">
+                          <div>login attempts</div>
+                          <p>number of user login attempts</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="wrapp">
+                          <div>customer spend 24h</div>
+                          <p>amount customer has spent in the past 24h</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="wrapp">
+                          <div>device id is on blacklist</div>
+                          <p>checkif a users device id is on a blacklist</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="wrapp">
+                          <div>card country</div>
+                          <p>credit card issue country</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- 2nd card -->
+                  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="form-group addinfo">
+                      <label for="exampleFormControlTextarea1">Write additional info.</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                  </div>
+                  <!-- 3nd card -->
+                  <div class="tab-pane fade third" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <div class="form">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Value Type<span>i</span></label>
+                        <select class="form-control round" id="exampleFormControlSelect1">
+                          <option class="">United States Dollar</option>
+                          <option class="amount">Indian Rupees</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>amount</label>
+                        <input class="form-control amount" placeholder="1500" />
+                      </div>
+                      <button class="btn btn-success">Insert</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- col -->
+          </div><!-- row -->
+
+        
+        </div><!-- az-content-body -->
+      </div>
+    </div><!-- az-content -->
+
+
+{% endblock %}
+

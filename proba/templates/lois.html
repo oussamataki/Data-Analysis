@@ -1,0 +1,589 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Probabilité{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+    <div class="az-content az-content-dashboard">
+      <div class="container">
+        <div class="az-content-body">
+          <div class="az-dashboard-one-title">
+            <div>
+              <h2 class="az-dashboard-title"></h2>
+              <p class="az-dashboard-text"></p>
+            </div>
+            <div class="az-content-header-right">
+              
+            </div>
+          </div><!-- az-dashboard-one-title -->
+
+          <div class="az-dashboard-nav"> 
+              <nav class="nav">
+                  </nav>
+
+              <div class="nav">
+              
+               
+              </div>
+            </div>
+
+          <div class="row row-sm mg-b-20">
+            
+           <div class="col-lg-4 ht-lg-60p">
+       
+              <div class="container card shadow d-flex justify-content-center mt-5">
+                  <!-- nav options -->
+                  <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Les lois de Probabilité</a>
+                    </li>
+                 
+                 
+                  </ul>
+
+                <!-- content -->
+               
+                <div class="tab-content" id="pills-tabContent p-3">
+                  <!-- 1st card -->
+                  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="m-3">
+                      
+    
+      <form method="post" action="{% url 'lois' %}" class="form">
+        {% csrf_token %}
+
+
+        <input name="dropdown1" id="dropdown1" value="{{selected}}" hidden />
+          <label for="selected_chart"><h3>Lois:</h3></label><br>
+
+        <select class="form-control" name="selected_chart" id="selected_chart">
+          
+          {% for key, value in charts.items %} 
+            {% if value != selected %}
+          <option value="{{ key }}">{{ value }}</option>
+            {% endif %} 
+          {% endfor %}
+        </select>
+
+        <input name="dropdown1" id="dropdown1" value="{{selected}}" hidden />
+        
+        <fieldset id="densite">
+        <legend>Densite</legend>
+
+         <div class="col-sm">
+                <label for="line1">Borne inférieure:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="line1"
+                  id="line1"
+                  placeholder="0"                
+/>
+        </div >
+
+         <div class="col-sm">
+                <label for="line1">Borne supérieure:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="line2"
+                  id="line2"
+                  placeholder="0"                
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="sigma">écart-type:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="sigma"
+                  id="sigma"
+                  placeholder="0" 
+                  min = "0"              
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="line1">Moyenne:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="mu"
+                  id="mu"
+                  placeholder="0"   
+                         
+                />
+        </div>
+       </fieldset>
+
+        <fieldset  id="Bernoulli">
+            <legend>Bernoulli</legend>
+
+
+           <div class="col-sm">
+                <label for="sizeb">Taille d'échantillons:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="sizeb"
+                  id="sizeb"
+                  placeholder="0"    
+                  min = "0"            
+                />
+        </div >
+
+         <div class="col-sm">
+                <label for="prob">Probabilité:</label>
+                <input
+                  class="form-control"
+                  name="prob"
+                  id="prob"
+                  placeholder="0"   
+                  min="0"             
+                />
+        </div>
+
+         <!-- <div class="col-sm">
+                <label for="figX">X:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="figX"
+                  id="figX"
+                  placeholder="0"                
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="figY">Y:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="figY"
+                  id="figY"
+                  placeholder="0"                
+                />
+        </div> -->
+
+        
+       </fieldset >
+
+        <fieldset  id="Binomial">
+          <legend>Binomial</legend>
+
+              <div class="col-sm">
+                <label for="sizebi">Taille d'échantillons:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="sizebi"
+                  id="sizebi"
+                  placeholder="0"   
+                  min = "0"     
+                />
+        </div >
+
+           <div class="col-sm">
+                <label for="position">La position de la distribution :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="position"
+                  id="position"
+                  placeholder="0"                
+                />
+        </div >
+
+         <div class="col-sm">
+                <label for="probi">Probabilité:</label>
+                <input
+                  class="form-control"
+                  name="probi"
+                  id="probi"
+                  placeholder="0"    
+                  min = "0"              
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="essais">Essais:</label>
+                <input
+                  class="form-control"
+                  name="essais"
+                  id="essais"
+                  placeholder="0"   
+                  min = "0"               
+                />
+        </div>
+
+         <!-- <div class="col-sm">
+                <label for="figX">X:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="figX"
+                  id="figX"
+                  placeholder="0"                
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="figY">Y:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="figY"
+                  id="figY"
+                  placeholder="0"                
+                />
+        </div> -->
+
+        
+       </fieldset >
+
+
+       <fieldset  id="Uniforme">
+        <legend>Uniforme</legend>
+
+              <div class="col-sm">
+                <label for="sizeuni">Taille d'échantillons:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="sizeuni"
+                  id="sizeuni"
+                  placeholder="0"  
+                  min = "0"                
+                />
+        </div >
+
+           <div class="col-sm">
+                <label for="positionuni">La position de la distribution :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="positionuni"
+                  id="positionuni"
+                  placeholder="0" 
+                />
+        </div >
+
+        
+
+         <div class="col-sm">
+                <label for="scale">Scale:</label>
+                <input
+                  class="form-control"
+                  name="scaleuni"
+                  id="scaleuni"
+                  placeholder="0"                
+                />
+        </div>
+
+         <!-- <div class="col-sm">
+                <label for="figX">X:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="figX"
+                  id="figX"
+                  placeholder="0"                
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="figY">Y:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="figY"
+                  id="figY"
+                  placeholder="0"                
+                />
+        </div> -->
+
+        
+       </fieldset >
+
+
+       <fieldset id="Poisson">
+        <legend>Poisson</legend>
+
+         
+
+         <div class="col-sm">
+                <label for="sizepo">Taille d'échantillons:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="sizepo"
+                  id="sizepo"
+                  placeholder="0" 
+                    min = "0"                 
+                />
+        </div >
+
+         <div class="col-sm">
+                <label for="line1">Moyenne:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="mupo"
+                  id="mupo"
+                  placeholder="0"                
+                />
+        </div>
+       </fieldset>
+
+     <fieldset  id="Loi_exponentielle">
+        <legend>Loi Exponentielle</legend>
+
+              <div class="col-sm">
+                <label for="sizeex">Taille d'échantillons:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="sizeex"
+                  id="sizeex"
+                  placeholder="0"  
+                    min = "0"                
+                />
+        </div >
+
+      
+
+         <div class="col-sm">
+                <label for="scaleex">Scale:</label>
+                <input
+                  class="form-control"
+                  name="scaleex"
+                  id="scaleex"
+                  placeholder="0"                
+                />
+        </div>
+
+
+
+        
+       </fieldset >
+
+
+      <fieldset  id="Loi_Normale">
+        <legend>Loi Normale</legend>
+
+              <div class="col-sm">
+                <label for="sizeno">Taille d'échantillons:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="sizeno"
+                  id="sizeno"
+                  placeholder="0"  
+                    min = "0"                
+                />
+        </div >
+
+          <div class="col-sm">
+                <label for="line1">Moyenne:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="muno"
+                  id="muno"
+                  placeholder="0"                
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="scale">Scale:</label>
+                <input
+                  class="form-control"
+                  name="scaleno"
+                  id="scaleno"
+                  placeholder="0"                
+                />
+        </div>
+
+         <!-- <div class="col-sm">
+                <label for="figX">X:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="figX"
+                  id="figX"
+                  placeholder="0"                
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="figY">Y:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="figY"
+                  id="figY"
+                  placeholder="0"                
+                />
+        </div> -->
+
+        
+       </fieldset >
+
+        <br />
+       
+
+        <button style="margin-top: 40px" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+    
+      </form>
+                    </div>
+                   
+       </div>
+                  
+                 
+                </div>
+              
+              </div>
+           
+            </div><!-- col -->
+  {% if image %}
+            <div class="ht-lg-100p">
+              <div class="card card-dashboard-one">
+                <div class="card-header">
+                 
+                </div><!-- card-header -->
+                 <div class="col-md-1">
+            <div>
+     
+
+                {% if image %}
+        <img src="data:image/png;base64,{{ image }}" alt="{{selected}}" />
+     
+        {% endif %}
+      
+      </div>
+          </div>
+              </div><!-- card -->
+            </div><!-- col -->
+          </div><!-- row -->
+{% endif %}
+        
+        </div><!-- az-content-body -->
+      </div>
+    </div><!-- az-content -->
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Initially hide line1Container and line2Container
+        $("#Bernoulli").hide();
+        $("#Binomial").hide();
+        $("#densite").show();
+        $("#Uniforme").hide();
+        $("#Poisson").hide();
+        $("#Loi_exponentielle").hide();
+        $("#Loi_Normale").hide();
+
+        // Listen for changes in the selected_chart dropdown
+        $("#selected_chart").change(function () {
+            var selectedValue = $(this).val();
+
+            // Show/hide containers based on the selected chart
+            if (selectedValue === 'densite') {
+                $("#densite").show();
+
+                $("#Bernoulli").hide();
+                $("#Binomial").hide();
+                $("#Uniforme").hide();
+                $("#Poisson").hide();
+                $("#Loi_exponentielle").hide();
+                $("#Loi_Normale").hide();
+
+            } else if (selectedValue === 'Bernoulli') {
+                $("#Bernoulli").show();
+
+                $("#Binomial").hide();
+                $("#densite").hide();
+                $("#Uniforme").hide();
+                $("#Poisson").hide();
+                $("#Loi_exponentielle").hide();
+                $("#Loi_Normale").hide();
+
+            } else if (selectedValue === 'Binomial') {
+                $("#Binomial").show();
+
+                $("#Bernoulli").hide();
+                $("#densite").hide();
+                $("#Uniforme").hide();
+                $("#Poisson").hide();
+                $("#Loi_exponentielle").hide();
+                $("#Loi_Normale").hide();
+
+            } else if (selectedValue === 'Uniforme') {
+                $("#Uniforme").show();
+
+                $("#Bernoulli").hide();
+                $("#densite").hide();
+                $("#Binomial").hide();
+                $("#Poisson").hide();
+                $("#Loi_exponentielle").hide();
+                $("#Loi_Normale").hide();
+
+
+            } else if (selectedValue === 'Poisson') {
+                $("#Poisson").show();
+
+                $("#Bernoulli").hide();
+                $("#densite").hide();
+                $("#Binomial").hide();
+                $("#Uniforme").hide();
+                $("#Loi_exponentielle").hide();
+                $("#Loi_Normale").hide();
+
+
+            } else if (selectedValue === 'Loi_exponentielle') {
+                $("#Loi_exponentielle").show();
+
+
+                $("#Bernoulli").hide();
+                $("#densite").hide();
+                $("#Binomial").hide();
+                $("#Uniforme").hide();
+                $("#Poisson").hide();
+                $("#Loi_Normale").hide();
+
+
+            } else if (selectedValue === 'Loi_Normale') {
+                $("#Loi_Normale").show();
+
+                $("#Bernoulli").hide();
+                $("#densite").hide();
+                $("#Binomial").hide();
+                $("#Uniforme").hide();
+                $("#Poisson").hide();
+                $("#Loi_exponentielle").hide();
+
+            } else {
+                // Add a default case or handle other values as needed
+            }
+
+        });
+    });
+</script>
+
+<script>
+    // Check if there is an error message in the context
+    '{% if error_message %}'
+        // Display the error message in a pop-up
+        alert('{{ error_message|escapejs }}');
+    '{% endif %}'
+</script>
+
+{% endblock %}
+
