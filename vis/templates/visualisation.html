@@ -1,0 +1,236 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Other Page{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+ <script>
+            function confirmSubmission() {
+                var columnsNotInNumerical = {{ nonumerical|safe }};
+                console.log("hello")
+                console.log(columnsNotInNumerical);
+                var selectedColumns = document.querySelectorAll('input[name="selected_columns"]:checked');
+                var selectedColumnsArray = Array.from(selectedColumns).map(input => input.value);
+                console.log(selectedColumnsArray);
+
+                var invalidColumns = columnsNotInNumerical.filter(column => selectedColumnsArray.includes(column));
+                console.log(invalidColumns);
+
+                if (invalidColumns.length > 0) {
+                  console.log("hello");
+                    var confirmation = confirm("Some selected columns are not in the 'numerical' list. Do you still want to submit?");
+                    if (confirmation) {
+                        document.getElementById("myForm").submit();
+                    }
+                    else return false;
+                } else {
+                    document.getElementById("myForm").submit();
+                }
+                
+            }
+        </script>
+
+    <div class="az-content az-content-dashboard">
+      <div class="container">
+        <div class="az-content-body">
+          <div class="az-dashboard-one-title">
+            <div>
+              <h2 class="az-dashboard-title"></h2>
+              <p class="az-dashboard-text"></p>
+            </div>
+            <div class="az-content-header-right">
+              
+            </div>
+          </div><!-- az-dashboard-one-title -->
+
+          <div class="az-dashboard-nav"> 
+              <nav class="nav">
+              </nav>
+
+              <div class="nav">
+                <div id="excel-dropdown" class="dropdown-box">
+                     <form method="post" action="{% url 'showV' %}" class="form">
+          {% csrf_token %}
+
+          <div class="form-group row">
+            <div class="col-sm">
+              <label for="dropdown1">Csv File</label>
+              <select class="form-control" id="dropdown1" name="dropdown1">
+                {% for uploaded_file in uploaded_files %}
+                <option value="{{ uploaded_file.file.name }}">
+                  {{ uploaded_file.file.name }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+       
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+                </div>
+                 <div id="link-dropdown" class="dropdown-box">
+                  <!-- Content for the Link dropdown goes here -->
+                 
+                </div>
+               
+              </div>
+            </div>
+
+          <div class="row row-sm mg-b-20">
+            
+           <div class="col-lg-4 ht-lg-60p">
+             {% if lendata %}
+              <div class="container card shadow d-flex justify-content-center mt-5">
+                  <!-- nav options -->
+                  <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Visualisation</a>
+                    </li>
+                 
+                 
+                  </ul>
+
+                <!-- content -->
+               
+                <div class="tab-content" id="pills-tabContent p-3">
+                  <!-- 1st card -->
+                  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="m-3">
+                      
+                      {% if lendata %}
+      <form method="post" action="{% url 'showV' %}" class="form" onsubmit="return confirmSubmission()">
+        {% csrf_token %}
+
+
+        <input name="dropdown1" id="dropdown1" value="{{selected}}" hidden />
+          <label for="selected_chart">        <h3 style="margin-top: 40px">Charts</h3>
+</label><br>
+
+        <select name="selected_chart" id="selected_chart" class="form-control">
+          
+          {% for key, value in charts.items %} 
+            {% if value != selected %}
+          <option value="{{ key }}">{{ value }}</option>
+            {% endif %} 
+          {% endfor %}
+        </select>
+
+        <h3 style="margin-top: 40px">Columns</h3>
+        <input name="dropdown1" id="dropdown1" value="{{selected}}" hidden />
+        
+        {% for column in columns %}
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="selected_columns"
+            value="{{ column }}"
+            id="{{ column }}"
+          />
+          <label class="form-check-label" for="{{ column }}">
+            {{ column }} 
+            {% if column in numerical %}
+                <span style="color: red; font-size: small;">numerical</span>
+            {% endif %}
+          </label>
+        </div>
+        {% endfor %}
+
+        <br />
+       
+
+        <button style="margin-top: 40px" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+        {% endif %}
+      </form>
+                    </div>
+                   
+       </div>
+                  
+                 
+                </div>
+              
+              </div>
+              {% endif %}
+            </div><!-- col -->
+{% if image %}
+            <div class="ht-lg-100p">
+              <div class="card card-dashboard-one">
+                <div class="card-header">
+                 
+                </div><!-- card-header -->
+                 <div class="col-md-1">
+            <div>
+        {% if image %}
+
+               {{ image | safe }}
+        {% endif %}
+      </div>
+
+    
+          </div>
+
+              </div><!-- card -->
+            </div><!-- col -->
+          </div><!-- row -->
+
+
+          <div>
+          {% if stats1 %}
+
+               {{ stats1 | safe }}
+        {% endif %}
+
+        </div>
+
+        <div>
+
+        {% if stats2 %}
+
+               {{ stats2 | safe }}
+        {% endif %}
+
+        </div>
+  {% endif %}
+        
+        </div><!-- az-content-body -->
+      </div>
+    </div><!-- az-content -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var checkboxes = document.querySelectorAll('input[name="selected_columns"]');
+    var maxAllowed = 2; // Change this to your desired maximum limit
+
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener('change', function () {
+        var checkedCheckboxes = document.querySelectorAll('input[name="selected_columns"]:checked');
+
+        if (checkedCheckboxes.length > maxAllowed) {
+          alert('You can select up to ' + maxAllowed + ' columns.');
+          this.checked = false; // Uncheck the last checkbox
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+    // Check if there is an error message in the context
+    '{% if error_message %}'
+        // Display the error message in a pop-up
+        alert('{{ error_message|escapejs }}');
+    '{% endif %}'
+</script>
+
+
+  
+
+{% endblock %}
+
