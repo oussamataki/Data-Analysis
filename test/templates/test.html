@@ -1,0 +1,392 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Other Page{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+    <div class="az-content az-content-dashboard">
+      <div class="container">
+        <div class="az-content-body">
+          <div class="az-dashboard-one-title">
+            <div>
+              <h2 class="az-dashboard-title">Hi, welcome back!</h2>
+              <p class="az-dashboard-text">Your Django dashboard.</p>
+            </div>
+            <div class="az-content-header-right">
+              
+            </div>
+          </div><!-- az-dashboard-one-title -->
+
+          <div class="az-dashboard-nav"> 
+              <nav class="nav">
+                 </nav>
+
+           
+            </div>
+
+          <div class="row row-sm mg-b-20">
+            
+           <div class="col-lg-4 ht-lg-60p">
+       
+              <div class="container card shadow d-flex justify-content-center mt-5">
+                  <!-- nav options -->
+                  <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Les tests de Probabilité</a>
+                    </li>
+                 
+                 
+                  </ul>
+
+                <!-- content -->
+               
+                <div class="tab-content" id="pills-tabContent p-3">
+                  <!-- 1st card -->
+                  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="m-3">
+                      
+    
+      <form method="post" action="{% url 'test' %}" class="form">
+        {% csrf_token %}
+
+
+        <input name="dropdown1" id="dropdown1" value="{{selected}}" hidden />
+          <label for="selected_chart"><h3>Lois:</h3></label><br>
+
+        <select class="form-control" name="selected_chart" id="selected_chart">
+          
+          {% for key, value in charts.items %} 
+            {% if value != selected %}
+          <option value="{{ key }}">{{ value }}</option>
+            {% endif %} 
+          {% endfor %}
+        </select>
+
+        <input name="dropdown1" id="dropdown1" value="{{selected}}" hidden />
+        
+        <fieldset id="z_test">
+        <legend>Z test</legend>
+        <h4>Groupe 1</h4>
+
+         <div class="col-sm">La moyenne
+                <label for="loc1"></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="loc1"
+                  id="loc1"
+                  placeholder="0"                
+/>
+        </div >
+
+         <div class="col-sm">
+                <label for="scale1">écart-type:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="scale1"
+                  id="scale1"
+                  placeholder="0"   
+                    min = "0"               
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="nmbre1">Le nombre d'échantillons </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="nmbre1"
+                  id="nmbre1"
+                  placeholder="0"   
+                    min = "0"               
+                />
+        </div>
+
+         <h4>Groupe 2</h4>
+
+         <div class="col-sm">La moyenne
+                <label for="loc2"></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="loc2"
+                  id="loc2"
+                  placeholder="0"                
+/>
+        </div >
+
+         <div class="col-sm">
+                <label for="scale2">écart-type:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="scale2"
+                  id="scale2"
+                  placeholder="0"  
+                    min = "0"                
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="nmbre2">Le nombre d'échantillons </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="nmbre2"
+                  id="nmbre2"
+                  placeholder="0"   
+                    min = "0"               
+                />
+        </div>
+
+        
+       </fieldset>
+
+        <fieldset id="t_test">
+        <legend>T test</legend>
+        <h4>Groupe 1</h4>
+
+         <div class="col-sm">La moyenne
+                <label for="loc1t"></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="loc1t"
+                  id="loc1t"
+                  placeholder="0"                
+/>
+        </div >
+
+         <div class="col-sm">
+                <label for="scale1t">écart-type:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="scale1t"
+                  id="scale1t"
+                  placeholder="0" 
+                    min = "0"                 
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="nmbre1t">Le nombre d'échantillons </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="nmbre1t"
+                  id="nmbre1t"
+                  placeholder="0"   
+                    min = "0"               
+                />
+        </div>
+
+         <h4>Groupe 2</h4>
+
+         <div class="col-sm">La moyenne
+                <label for="loc2t"></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="loc2t"
+                  id="loc2t"
+                  placeholder="0"                
+/>
+        </div >
+
+         <div class="col-sm">
+                <label for="scale2t">écart-type:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="scale2t"
+                  id="scale2t"
+                  placeholder="0"   
+                    min = "0"               
+                />
+        </div>
+
+         <div class="col-sm">
+                <label for="nmbre2t">Le nombre d'échantillons </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="nmbre2t"
+                  id="nmbre2t"
+                  placeholder="0" 
+                    min = "0"                 
+                />
+        </div>
+
+        
+       </fieldset>
+
+       <fieldset id="chi_square_test">
+        <legend>Khi carree test</legend>
+        <h4>Groupe 1</h4>
+
+         <div class="col-sm">Valeur observe 1
+                <label for="obs11"></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="obs11"
+                  id="obs11"
+                  placeholder="0"                
+/>
+        </div >
+
+         <div class="col-sm">
+                <label for="obs12">Valeur observe 2</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="obs12"
+                  id="obs12"
+                  placeholder="0"                
+                />
+        </div>
+
+
+
+         <h4>Groupe 2</h4>
+
+         <div class="col-sm">Valeur observe 1
+                <label for="obs21"></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="obs21"
+                  id="obs21"
+                  placeholder="0"                
+/>
+        </div >
+
+         <div class="col-sm">
+                <label for="obs22">Valeur observe 2</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="obs22"
+                  id="obs22"
+                  placeholder="0"                
+                />
+        </div>
+
+    
+
+        
+       </fieldset>
+
+    
+
+        <br />
+       
+
+        <button style="margin-top: 40px" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+    
+      </form>
+                    </div>
+                   
+       </div>
+                  
+                 
+                </div>
+              
+              </div>
+           
+            </div><!-- col -->
+{% if image %}
+            <div class="ht-lg-100p">
+              <div class="card card-dashboard-one">
+                <div class="card-header">
+                 
+                </div><!-- card-header -->
+                 <div class="col-md-1">
+            <div>
+     
+
+                {% if image %}
+        <!-- <img src="data:image/png;base64,{{ image }}" alt="{{selected}}" /> -->
+        {{image|safe}}
+        {% endif %}
+
+      
+      
+      </div>
+          </div>
+              </div><!-- card -->
+            </div><!-- col -->
+          </div><!-- row -->
+ {% endif %}
+  {% if table %}
+
+         {{table|safe}}
+        {% endif %}
+        
+        </div><!-- az-content-body -->
+      </div>
+    </div><!-- az-content -->
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Initially hide line1Container and line2Container
+        $("#t_test").show();
+        $("#chi_square_test").hide();
+        $("#z_test").hide();
+     
+
+        // Listen for changes in the selected_chart dropdown
+        $("#selected_chart").change(function () {
+            var selectedValue = $(this).val();
+
+            // Show/hide containers based on the selected chart
+            if (selectedValue === 'z_test') {
+                $("#z_test").show();
+
+                $("#t_test").hide();
+                $("#chi_square_test").hide();
+             
+
+            } else if (selectedValue === 't_test') {
+                $("#t_test").show();
+
+                $("#chi_square_test").hide();
+                $("#z_test").hide();
+           
+
+            
+
+            } else if(selectedValue==='chi_square_test'){
+
+                 $("#t_test").hide();
+
+                $("#chi_square_test").show();
+                $("#z_test").hide();
+            }
+            else {
+                // Add a default case or handle other values as needed
+            }
+
+        });
+    });
+</script>
+
+<script>
+    // Check if there is an error message in the context
+    '{% if error_message %}'
+        // Display the error message in a pop-up
+        alert('{{ error_message|escapejs }}');
+    '{% endif %}'
+</script>
+
+{% endblock %}
+
